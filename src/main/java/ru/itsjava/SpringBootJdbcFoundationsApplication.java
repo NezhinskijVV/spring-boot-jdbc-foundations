@@ -29,7 +29,7 @@ public class SpringBootJdbcFoundationsApplication {
 
         Student updatedStudent = new Student("Ivanov 2", 100);
         updatedStudent.setId(1L);
-        studentDao.updateStudent(updatedStudent);
+        studentDao.update(updatedStudent);
 
         System.out.println("studentDao.findById(1L) = " + studentDao.findById(1L));
 

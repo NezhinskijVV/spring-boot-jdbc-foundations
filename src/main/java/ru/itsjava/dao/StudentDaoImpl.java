@@ -29,7 +29,7 @@ public class StudentDaoImpl implements StudentDao {
     }
 
     @Override
-    public void updateStudent(Student student) {
+    public void update(Student student) {
         Map<String, Object> params = Map.of("id", student.getId(), "fio", student.getFio(), "age", student.getAge());
 
         jdbc.update("update students set fio = :fio where id = :id", params);
