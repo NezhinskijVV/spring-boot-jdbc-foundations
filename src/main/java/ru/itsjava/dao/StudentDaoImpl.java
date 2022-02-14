@@ -13,6 +13,7 @@ import ru.itsjava.domain.Student;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("ALL")
@@ -55,8 +56,13 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public Student findById(long id) {
         Map<String, Object> params = Map.of("id", id);
-        return jdbc.queryForObject("select s.id, fio, age, f.id, name from students s, faculties f where s.id = :id " +
+        return jdbc.queryForObject("select s.id as SID, fio, age, f.id as FID, name from students s, faculties f where s.id = :id " +
                 "and s.faculty_id = f.id", params, new StudentsMapper());
+    }
+
+    @Override
+    public List<Student> findAll() {
+        return jdbc.query("select s.id as SID, fio, age, f.id as FID, name from students s, faculties f where s.faculty_id = f.id", new StudentsMapper());
     }
 
 
@@ -64,8 +70,8 @@ public class StudentDaoImpl implements StudentDao {
 
         @Override
         public Student mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Student(rs.getLong("id"), rs.getString("fio"), rs.getInt("age"),
-                    new Faculty(rs.getLong("id"), rs.getString("name")));
+            return new Student(rs.getLong("SID"), rs.getString("fio"), rs.getInt("age"),
+                    new Faculty(rs.getLong("FID"), rs.getString("name")));
         }
     }
 

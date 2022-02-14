@@ -2,6 +2,8 @@ package ru.itsjava.dao;
 
 import ru.itsjava.domain.Student;
 
+import java.util.List;
+
 public interface StudentDao {
 
     int count();
@@ -13,4 +15,6 @@ public interface StudentDao {
     void delete(Student student);
 
     Student findById(long id);
+
+    List<Student> findAll();
 }
